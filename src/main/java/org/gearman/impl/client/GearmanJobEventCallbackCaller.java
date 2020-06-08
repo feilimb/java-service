@@ -98,7 +98,10 @@ public class GearmanJobEventCallbackCaller<A> implements BackendJobReturn, Gearm
 		eventQueue.add(lastevent);
 		eventQueue.add(GearmanJobEventImmutable.GEARMAN_EOF);
 		this.isEOF = true;
-		if(!this.isRunning) exe.execute(this);
+		if(!this.isRunning && !GearmanJobEventImmutable.GEARMAN_SUBMIT_FAIL_SERVICE_SHUTDOWN.equals(lastevent)) 
+	   {
+		   exe.execute(this);
+	   }
 	}
 
 	@Override
